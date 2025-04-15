@@ -1,0 +1,175 @@
+1. Create a New GitHub Repository
+Go to GitHub.com and log in.
+
+Click the New (or “+”) button to create a new repository.
+
+Give it a name (e.g., detective-game) and choose Public or Private.
+
+You can add a README if you want.
+
+Click Create repository.
+
+Now you have a new, empty GitHub repo ready to work with.
+
+2. Open the Repo in Codespaces
+Go to your new repo page on GitHub.
+
+Click the Code button (the green one).
+
+In the dropdown, select Codespaces.
+
+If you have no existing Codespaces, click Create codespace on main (or on your chosen branch).
+
+GitHub will now spin up a Codespace—an online development environment—for your repository. This may take a minute or two the first time.
+
+3. Initialize Your Codespace Environment
+Once Codespaces finishes provisioning, you’ll see a VS Code-like interface in your browser:
+
+There’s a built-in terminal at the bottom (or you can open it via View > Terminal).
+
+By default, you’ll be in your repo directory (e.g., /workspaces/detective-game).
+
+4. Create and Activate a Virtual Environment (Optional but Recommended)
+While you can install Python packages globally in the Codespace container, it’s usually cleaner to have a virtual environment:
+
+bash
+Kopiera
+python -m venv venv
+source venv/bin/activate
+(On Windows Codespaces images, you might do venv\Scripts\activate.)
+
+You should see (venv) in your terminal prompt, indicating the environment is active.
+
+5. Install Django
+In the activated venv, install Django:
+
+bash
+Kopiera
+pip install django
+6. Create a Django Project
+Still in your repo directory, run:
+
+bash
+Kopiera
+django-admin startproject DetectiveProject
+This creates a folder named DetectiveProject with your core Django settings and files:
+
+markdown
+Kopiera
+detective-game/
+    DetectiveProject/
+        DetectiveProject/
+            __init__.py
+            asgi.py
+            settings.py
+            urls.py
+            wsgi.py
+        manage.py
+7. Create the Detective App
+Change directory into the newly created DetectiveProject folder:
+
+bash
+Kopiera
+cd DetectiveProject
+Start an app named detective:
+
+bash
+Kopiera
+python manage.py startapp detective
+Now your structure might look like:
+
+markdown
+Kopiera
+detective-game/
+    DetectiveProject/
+        manage.py
+        DetectiveProject/
+            __init__.py
+            asgi.py
+            settings.py
+            urls.py
+            wsgi.py
+        detective/
+            __init__.py
+            admin.py
+            apps.py
+            models.py
+            views.py
+            tests.py
+            migrations/
+8. Register the “detective” App in settings.py
+Open DetectiveProject/settings.py (in the DetectiveProject/DetectiveProject directory) and add 'detective' to INSTALLED_APPS:
+
+python
+Kopiera
+# DetectiveProject/settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'detective',  # your new app
+]
+9. Migrate the Database
+From the Codespaces terminal (still in /workspaces/detective-game/DetectiveProject):
+
+bash
+Kopiera
+python manage.py migrate
+This initializes the default Django database (SQLite by default) with the built-in tables for auth, sessions, etc.
+
+10. Run the Development Server
+Test your setup by running:
+
+bash
+Kopiera
+python manage.py runserver 0.0.0.0:8000
+(Codespaces typically requires binding on 0.0.0.0 so it can forward the port.)
+
+Django will start on port 8000.
+
+Codespaces should detect the forwarded port automatically. Check the little “Ports” tab (or “Ports” section in the bottom panel).
+
+Click the Open in Browser link next to port 8000.
+
+You’ll see the default Django welcome page saying “The install worked successfully!” if everything is correct.
+
+11. (Optional) Commit and Push
+You’ve likely not committed changes yet. Let’s do that:
+
+Open the Source Control tab in the Codespaces sidebar (or just use Git commands in the terminal).
+
+Stage all changed files, add a commit message, and commit.
+
+Push to your GitHub repository (if it hasn’t auto-pushed yet).
+
+This ensures your new Django project and app are stored in GitHub.
+
+12. Next Steps
+Add models for your detective game in detective/models.py.
+
+Create migrations for your new models (python manage.py makemigrations detective) then python manage.py migrate.
+
+Define views in detective/views.py and map them to URLs in DetectiveProject/urls.py or a new detective/urls.py that you include in the main urlpatterns.
+
+Create templates for your signup page, detective dashboards, etc.
+
+Reload the dev server and your Codespaces environment updates automatically.
+
+Summary
+Create a GitHub repo & open it in Codespaces.
+
+Install Django in your container (optionally in a venv).
+
+startproject DetectiveProject to scaffold a Django project.
+
+startapp detective inside that project.
+
+Register the detective app in settings.py.
+
+Migrate the database.
+
+Run the server on 0.0.0.0:8000 and open in browser.
