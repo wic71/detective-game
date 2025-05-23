@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Hem - Frost & Fika: Rookie Investigations{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Välkommen till Frost & Fika!</h1>
+    <p>Din resa som privatdetektiv börjar här. Utforska mysterier, samla ledtrådar och lös brott!</p>
+
+    {% if user.is_authenticated %}
+        <p>Hej, {{ user.email }}!</p>
+        <a href="{% url 'detective_office' %}" class="btn btn-primary me-2">Gå till dina fall, din statistik och dina anteckningar.</a>
+    {% else %}
+        <a href="{% url 'account_signup' %}" class="btn btn-primary me-2">Registrera dig</a>
+        <a href="{% url 'account_login' %}" class="btn btn-secondary">Logga in</a>
+    {% endif %}
+</div>
+{% endblock %}

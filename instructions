@@ -1,3 +1,23 @@
+
+cd DetectiveProject
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver 0.0.0.0:8000
+
+python manage.py createsuperuser.insight.consulting
+
+
+Alternatively, it’s often better to use Django’s settings.AUTH_USER_MODEL rather than hardcoding the string. For example:
+
+python
+Kopiera
+from django.conf import settings
+# ...
+user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+
+
 1. Create a New GitHub Repository
 Go to GitHub.com and log in.
 

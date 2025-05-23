@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Registrera dig | Deckarspel{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">Registrera dig</h1>
+  <form method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Registrera dig</button>
+  </form>
+  
+  <p>Redan har du ett konto? <a href="{% url 'account_login' %}">Logga in</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Din Spelaröversikt | Deckarspel{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row align-items-center">
+    <!-- Avatar -->
+    <div class="col-md-3 text-center">
+      <img src="{{ player.avatar_url }}"
+           class="img-fluid rounded-circle mb-3"
+           alt="{{ player.in_game_first_name }}'s avatar"
+           style="width:150px; height:225px; object-fit:cover;">
+    </div>
+    <!-- Spelarinfo -->
+    <div class="col-md-9">
+      <h2>{{ player.in_game_first_name }} {{ player.in_game_last_name }}</h2>
+      <p><strong>Titel:</strong> {{ player.title }}</p>
+      <p><strong>Anställdes:</strong> {{ player.sign_up_date|date:"Y-m-d H:i" }}</p>
+      <p><strong>Sist inloggad:</strong> {{ player.last_login_date|date:"Y-m-d H:i" }}</p>
+      <p><strong>Antal inloggningar:</strong> {{ player.num_of_logins }}</p>
+      {% if player.fk_current_case_id %}
+        <p><strong>Aktuellt fall:</strong>
+          <a href="{% url 'case_detail' player.fk_current_case_id %}">
+            Fall #{{ player.fk_current_case_id }}
+          </a>
+        </p>
+      {% else %}
+        <p><em>Du har inget öppet fall just nu.</em></p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

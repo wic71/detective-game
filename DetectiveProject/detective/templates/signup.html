@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+{% block title %}Registrera dig | Frost & Fika: Rookie Investigations{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">Registrera dig</h1>
+  <form method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Registrera dig</button>
+  </form>
+  
+  <hr>
+  
+  <h2>Registrera med ett socialt konto</h2>
+  {% providers_media_js %}
+  <ul class="list-unstyled">
+    {% for provider in socialaccount_providers %}
+      <li class="mb-2">
+        <a class="btn btn-secondary" href="{% provider_login_url provider.id process='signup' %}">
+          Registrera med {{ provider.name }}
+        </a>
+      </li>
+    {% empty %}
+      <li>Inga sociala konton är konfigurerade.</li>
+    {% endfor %}
+  </ul>
+  
+  <p>Redan har du ett konto? <a href="{% url 'account_login' %}">Logga in</a></p>
+</div>
+{% endblock %}

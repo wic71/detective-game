@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Första Dagen på Jobbet | Deckarspel{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Första dagen på jobbet</h1>
+  <p>Fyll i dina uppgifter:</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.in_game_first_name.label_tag }}<br>
+    {{ form.in_game_first_name }}<br><br>
+
+    {{ form.in_game_last_name.label_tag }}<br>
+    {{ form.in_game_last_name }}<br><br>
+
+    <label for="id_avatar_url">Vi har råkat mixa upp flera polisers foton, v i ber om ursäkt, men välj den bild du skickade in till personaldatabasen<span class="text-danger">*</span></label>
+    <div class="d-flex flex-wrap">
+      {% for url, filename in avatar_choices %}
+        <div class="me-3 mb-3 text-center">
+          <label style="cursor:pointer;">
+            <input type="radio"
+                   name="avatar_url"
+                   value="{{ url }}"
+                   {% if form.instance.avatar_url == url %}checked{% endif %}
+                   required>
+            <br>
+            <img src="{{ url }}" width="100" height="150" alt="{{ filename }}">
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+    {% if form.errors.avatar_url %}
+      <div class="text-danger">{{ form.errors.avatar_url }}</div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Spara och fortsätt</button>
+  </form>
+</div>
+{% endblock %}
