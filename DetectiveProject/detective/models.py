@@ -9,6 +9,7 @@ from django.contrib.auth.models import (
     Permission,
 )
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
