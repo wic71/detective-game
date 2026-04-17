@@ -26,16 +26,17 @@ def get_avatar_choices():
         print("Error loading avatars:", e)
     return choices
 
-
-from .forms import get_avatar_choices  # din funktion för att hämta bilder
-
 class FirstDayForm(forms.ModelForm):
     avatar_url = forms.ChoiceField(
-        choices=get_avatar_choices(),
+        choices=[],
         widget=forms.RadioSelect,  # Byt ut till radio‑knappar
         label="Välj Avatar",
         required=True
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["avatar_url"].choices = get_avatar_choices()
 
     class Meta:
         model = Player
